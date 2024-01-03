@@ -1,20 +1,4 @@
 /***********************************************************************
-Write a function, `batchTimeouts`, that accepts an array of callbacks and an
-array of delays in milliseconds. The function should set a timeout for each
-callback in the array with its corresponding delay. For example, the
-callback at index 0 should be set with the delay at index 0,
-the callback at index 1 should be set with the delay at index 1, and so on.
-The `batchTimeouts` function should return an array containing the Timeout
-objects for each timeout that was set. You may assume that both array arguments
-have the same length.
-
-In addition to Mocha, we recommend that you test your code manually using
-node with the examples below to confirm the correct behavior.
-
-Note: The test specs for this problem are valid for iterative solutions. If you
-pass the specs for an iterative solution and then attempt a recursive solution,
-you will need to test your new solution manually using node.
-
 Example:
 
 const sayHello = () => console.log('hi');
@@ -30,14 +14,45 @@ const timeoutObjs = batchTimeouts(tasks, delays);
 //  'WHAT?' after 900 ms
 
 console.log(timeoutObjs); // [ Timeout {...},  Timeout {...}, Timeout {...} ]
+
+Write a function, `batchTimeouts`, that accepts an array of callbacks and an
+array of delays in milliseconds. The function should set a timeout for each
+callback in the array with its corresponding delay. For example, the
+callback at index 0 should be set with the delay at index 0,
+the callback at index 1 should be set with the delay at index 1, and so on.
+The `batchTimeouts` function should return an array containing the Timeout
+objects for each timeout that was set. You may assume that both array arguments
+have the same length.
+
+In addition to Mocha, we recommend that you test your code manually using
+node with the examples below to confirm the correct behavior.
+
+Note: The test specs for this problem are valid for iterative solutions. If you
+pass the specs for an iterative solution and then attempt a recursive solution,
+you will need to test your new solution manually using node.
 ***********************************************************************/
 
-function batchTimeouts(callbacks, delays) {
-  let newArr = [];
-  for (let i = 0; i < callbacks.length; i++) {
-    newArr.push(setTimeout(callbacks[i], delays[i]));
-  };
-  return newArr;
+// function batchTimeouts(callbacks, delays) {
+//   let newArr = [];
+//   for (let i = 0; i < callbacks.length; i++) {
+//     newArr.push(setTimeout(callbacks[i], delays[i]));
+//   };
+//   return newArr;
+// };
+
+//Base case: callbacks.length === 0
+  //return newArr
+
+//Recursive step: arr.slice callbacks and delays to the newArr
+//Recursive case: pushing the sliced item from callbacks and delays to the newArr
+
+function batchTimeouts(callbacks, delays, newArr = []) {
+  if (callbacks.length === 0) {
+    return newArr;
+  }
+
+  newArr.push(setTimeout(callbacks[0], delays[0]));
+  return batchTimeouts(callbacks.slice(1), delays.slice(1), newArr);
 };
 
 const sayHello = () => console.log('hi');
